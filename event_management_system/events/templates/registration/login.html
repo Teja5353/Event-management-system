@@ -1,0 +1,17 @@
+{% extends 'events/base.html' %}
+{% block title %}Login{% endblock %}
+{% load static %}
+{% block content %}
+<h1 class="LoginTitle">WELCOME TO THE EVENT MANAGEMENT SYSTEM</h1>
+<div class="LoginBox">
+<h2 class="LoginText">Login</h2>
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+<div class="login-form">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class = "LoginButton" type="submit">Submit</button>
+        <p>Don't have an account? <a href="{% url 'register' %}" class = "register_a">Register here</a></p>
+    </form>
+</div></div>
+{% endblock %}

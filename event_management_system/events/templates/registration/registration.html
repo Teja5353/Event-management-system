@@ -1,0 +1,16 @@
+{% extends 'events/base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<div class="RegBox">
+<h2 class="register-title">CREATE A NEW ACCOUNT</h2>
+<div class="reg-form">
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="regButton">Register</button>
+</form>
+<p>Already have an account? <a href="{% url 'login' %}" class="register_a">Login here</a></p>
+</div></div>
+{% endblock %}

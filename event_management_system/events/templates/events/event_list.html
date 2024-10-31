@@ -1,0 +1,32 @@
+{% extends 'events/base.html' %}
+{% block title %}Events{% endblock %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block content %}
+<h1 class="list_h">Welcome to the Event Management System</h1>
+<div class="list_wrap">
+{% if user.is_authenticated %}
+    <h2 class="list_h2">Your Booked Events</h2>
+    {% if booked_events %}
+        <ul>
+        {% for event in booked_events %}
+            <li>{{event.name}} - {{event.data}} at {{event.time}} Venue : {{event.location}}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not booked any events.</p>
+    {% endif %}
+{% endif %}
+<h2 class="list_h2">Upcoming Events</h2>
+<ul>
+    {% for event in upcoming_events %}
+        <li>
+            {{event.name}} - {{event.date}} at {{event.time}}
+            {% if user.is_authenticated %}
+                <a href="{% url 'book_event' event.id %}">Book</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock %}

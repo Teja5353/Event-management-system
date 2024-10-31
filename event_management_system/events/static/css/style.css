@@ -1,0 +1,158 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color : #FAF6F6;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1rem;
+}
+
+main {
+    padding: 2rem;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.LoginButton{
+    color: white;
+    text-align : center;
+    cursor : pointer;
+    background-color : green;
+    border : none;
+    size : 20px;
+    font-size : 20px;
+    padding : 10px 10px 10px 10px;
+    border-radius : 15px;
+    margin : 10px 10px 10px 100px;
+    display: inline-block;
+}
+.LoginText{
+    font-size : 35px;
+    color : green;
+    text-align : center;
+    margin-left : 10px
+}
+.LoginTitle{
+    text-align : center;
+    margin-bottom : 80px;
+    margin-top : 50px;
+}
+.register-title{
+    text-align : center;
+    margin-top : 0px;
+}
+.login-form{
+    padding-left : 80px;
+    padding-right : 80px;
+    margin-left : 120px;
+    border-radius: 5px;
+    border: 2px solid black;
+    background: #FFF;
+    color: black;
+    width : 300px;
+    padding-top : 30px;
+    box-shadow: 10px 10px 5px grey;
+    background-color : #E3DFDF;
+}
+.LoginBox{
+    position: fixed;
+    margin-top:50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color : red;
+}
+a {
+    color : yellow;
+}
+.register_a{
+    color: blue;
+}
+.RegBox{
+    position: fixed;
+    margin-top:5px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+}
+.reg-form{
+    border : 2px solid black;
+    border-radius : 5px;
+    padding-left : 10px;
+    width : 500px;
+    box-shadow: 10px 10px 5px grey;
+    background-color : #E3DFDF;
+    padding-top : 10px;
+}
+.regButton{
+    color: white;
+    text-align : center;
+    cursor : pointer;
+    background-color : green;
+    border : 1px solid black;
+    size : 20px;
+    font-size : 20px;
+    padding : 10px 10px 10px 10px;
+    border-radius : 15px;
+    margin : 10px 50px 10px 100px;
+}
+.list_h{
+    text-align : center;
+    color : black;
+    margin-top: 20px;
+    margin-bottom : 50px;
+}
+.list_wrap{
+    background-color: #FBEAEB;
+    border : 2px solid black;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    height : 300px;
+    text-align : center;
+    padding-top : 20px;
+    background-color : #E3DFDF;
+    border-radius : 30px;
+    marign-top : 40px;
+    overflow-y : auto;
+    overflow-x : hidden;
+    scroll-behaviour : smooth;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+.list_h2{
+    color : #2F3C7E;
+    font-size: 25px;
+
+}

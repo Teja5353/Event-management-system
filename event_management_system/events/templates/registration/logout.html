@@ -1,0 +1,9 @@
+{% extends 'events/base.html' %}
+{% block title %}Logout{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-top: 50px;">
+    <h2>You are logged out</h2>
+    <p>Thank you for using our Event Management System.</p>
+    <a href="{% url 'login' %}" class="btn">Login Again</a>
+</div>
+{% endblock %}
