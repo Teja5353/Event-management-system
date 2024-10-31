@@ -41,7 +41,7 @@ footer {
     color: white;
     text-align : center;
     cursor : pointer;
-    background-color : green;
+    background-color :   #1995AD;
     border : none;
     size : 20px;
     font-size : 20px;
@@ -50,16 +50,11 @@ footer {
     margin : 10px 10px 10px 100px;
     display: inline-block;
 }
-.LoginText{
-    font-size : 35px;
-    color : green;
-    text-align : center;
-    margin-left : 10px
-}
 .LoginTitle{
     text-align : center;
     margin-bottom : 80px;
     margin-top : 50px;
+    color : #31473A;
 }
 .register-title{
     text-align : center;
@@ -68,15 +63,14 @@ footer {
 .login-form{
     padding-left : 80px;
     padding-right : 80px;
-    margin-left : 120px;
     border-radius: 5px;
     border: 2px solid black;
     background: #FFF;
     color: black;
-    width : 300px;
+    width : 350px;
     padding-top : 30px;
     box-shadow: 10px 10px 5px grey;
-    background-color : #E3DFDF;
+    background-color : #F1F1F2;
 }
 .LoginBox{
     position: fixed;
@@ -129,18 +123,17 @@ a {
 }
 .list_h{
     text-align : center;
-    color : black;
+    color : #C5001A;
     margin-top: 20px;
     margin-bottom : 50px;
 }
 .list_wrap{
-    background-color: #FBEAEB;
+    background-color: #FDF6F6;
     border : 2px solid black;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
     height : 300px;
     text-align : center;
     padding-top : 20px;
-    background-color : #E3DFDF;
     border-radius : 30px;
     marign-top : 40px;
     overflow-y : auto;
@@ -152,7 +145,80 @@ a {
     background: transparent; /* make scrollbar transparent */
 }
 .list_h2{
-    color : #2F3C7E;
+    color : #C5001A;
     font-size: 25px;
 
+}
+.list_ele{
+    font-size:20;
+    color: #002C54;
+    font-weight : bold;
+}
+/* CSS */
+.logout-button {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  float : right;
+}
+
+.logout-button:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.logout-button:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
 }

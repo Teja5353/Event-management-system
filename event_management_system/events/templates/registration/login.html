@@ -2,9 +2,10 @@
 {% block title %}Login{% endblock %}
 {% load static %}
 {% block content %}
+<div class="login-body">
 <h1 class="LoginTitle">WELCOME TO THE EVENT MANAGEMENT SYSTEM</h1>
 <div class="LoginBox">
-<h2 class="LoginText">Login</h2>
+<!--<h2 class="LoginText">Login</h2>-->
 <link rel="stylesheet" href="{% static '/css/style.css' %}">
 <div class="login-form">
     <form method="POST">
@@ -14,4 +15,5 @@
         <p>Don't have an account? <a href="{% url 'register' %}" class = "register_a">Register here</a></p>
     </form>
 </div></div>
+</div>
 {% endblock %}

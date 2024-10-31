@@ -10,7 +10,7 @@
     {% if booked_events %}
         <ul>
         {% for event in booked_events %}
-            <li>{{event.name}} - {{event.data}} at {{event.time}} Venue : {{event.location}}</li>
+            <li class="list_ele">{{event.name}} - {{event.data}} at {{event.time}} Venue : {{event.location}}</li>
         {% endfor %}
         </ul>
     {% else %}
@@ -18,9 +18,10 @@
     {% endif %}
 {% endif %}
 <h2 class="list_h2">Upcoming Events</h2>
+    {% if upcoming_events %}
 <ul>
     {% for event in upcoming_events %}
-        <li>
+        <li class="list_ele">
             {{event.name}} - {{event.date}} at {{event.time}}
             {% if user.is_authenticated %}
                 <a href="{% url 'book_event' event.id %}">Book</a>
@@ -28,5 +29,8 @@
         </li>
     {% endfor %}
 </ul>
+    {% else %}
+        <p class="list_ele">No Upcoming Events!!</p>
+    {% endif %}
 </div>
 {% endblock %}

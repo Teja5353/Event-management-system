@@ -19,7 +19,7 @@
                     {% if user.is_authenticated %}
                         <form action="{% url 'logout' %}" method="POST" style="display: inline;">
                             {% csrf_token %}
-                            <button type="submit">Logout</button>
+                            <button type="submit" class="logout-button">Logout</button>
                         </form>
                     {% else %}
                         <a href="{% url 'login' %}">Login</a>
