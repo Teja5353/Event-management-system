@@ -74,7 +74,7 @@ Visit http://127.0.0.1:8000 in your browser to view the app.
 Admin Dashboard: After creating a superuser, log in to /admin to manage events and user bookings.
 User Interface: Users can sign up, view events, and make bookings.
 ## Project Structure
-event-management-system/
+event-management-system/\
 ├── events/                     # Main application directory\
 │   ├── migrations/             # Database migrations\
 │   ├── templates/              # HTML templates\
