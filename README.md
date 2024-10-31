@@ -39,9 +39,10 @@ This Event Management System simplifies the process of organizing and attending 
 
 ### Installation
 1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/event-management-system.git
-   cd event-management-system
+```bash
+git clone https://github.com/yourusername/event-management-system.git
+cd event-management-system
+```
 2.__Create a virtual environment__:
 
   ```bash
