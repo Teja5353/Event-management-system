@@ -75,16 +75,16 @@ Admin Dashboard: After creating a superuser, log in to /admin to manage events a
 User Interface: Users can sign up, view events, and make bookings.
 ## Project Structure
 event-management-system/
-├── events/                     # Main application directory
-│   ├── migrations/             # Database migrations
-│   ├── templates/              # HTML templates
-│   ├── static/                 # Static files (CSS, JavaScript)
-│   ├── views.py                # Application views
-│   ├── models.py               # Application models
-│   └── urls.py                 # Application URLs
-├── event_management/           # Project settings
-├── requirements.txt            # Project dependencies
-├── manage.py                   # Django management script
-└── README.md                   # Project README
+├── events/                     # Main application directory\
+│   ├── migrations/             # Database migrations\
+│   ├── templates/              # HTML templates\
+│   ├── static/                 # Static files (CSS, JavaScript)\
+│   ├── views.py                # Application views\
+│   ├── models.py               # Application models\
+│   └── urls.py                 # Application URLs\
+├── event_management/           # Project settings\
+├── requirements.txt            # Project dependencies\
+├── manage.py                   # Django management script\
+└── README.md                   # Project README\
 
 Created by Your TejaNiduram. Feel free to reach out if you have any questions or suggestions!
