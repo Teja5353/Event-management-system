@@ -85,6 +85,6 @@ event-management-system/\
 ├── event_management/           # Project settings\
 ├── requirements.txt            # Project dependencies\
 ├── manage.py                   # Django management script\
-└── README.md                   # Project README\
+└── README.md                   # Project README
 
 Created by Your TejaNiduram. Feel free to reach out if you have any questions or suggestions!
