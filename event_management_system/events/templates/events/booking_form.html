@@ -1,6 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <h1>Book Event: {{ event.name }}</h1>
+<p>Event Description:<div>{{event.description}}</div></p>
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}

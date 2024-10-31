@@ -24,7 +24,7 @@
         <li class="list_ele">
             {{event.name}} - {{event.date}} at {{event.time}}
             {% if user.is_authenticated %}
-                <a href="{% url 'book_event' event.id %}">Book</a>
+                <a href="{% url 'book_event' event.id %}"><button class="Book">Book</button></a>
             {% endif %}
         </li>
     {% endfor %}
