@@ -1,9 +1,15 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<h1>Book Event: {{ event.name }}</h1>
-<p>Event Description:<div>{{event.description}}</div></p>
-<form method="POST">
+<div class="book-div">
+<h1 class="book-head">Book Event : {{ event.name }}</h1>
+    <div class="loc">Location&#128205; : {{event.location}} </div>
+    <div class="loc">Date &#128467;: {{event.date}}</div>
+    <div class="loc">Time &#128344;: {{event.time}}</div>
+    <h2 class="book-h2">About Event :</h2>
+    <div class="desc">{{event.description}}</div>
+    <form method="POST" class="form-book">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Book Now</button>
+    <button type="submit" class="logout-button1">Book Now</button>
 </form>
+</div>
