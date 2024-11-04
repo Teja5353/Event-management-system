@@ -1,8 +1,28 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<h1>Create Event</h1>
+<div class="create-div">
+<h1 class="create-h1">Create Event</h1>
+    <div class="create-d1">
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Event</button>
+    <div class="create-name">Name :
+        {{form.name}}
+    </div>
+    <div class="create-name"> Description :
+        {{form.description}}
+    </div>
+    <div class="create-name"> Location&#128205;:
+        {{form.location}}
+    </div>
+    <div class="create-name"> Date &#128467;:
+        {{form.date}}
+    </div>
+    <div class="create-name"> Time &#128344;:
+        {{form.time}}
+    </div>
+    <div>
+    <button type="submit" class="logout-button1">Create Event</button>
+    </div>
 </form>
+</div>
+</div>

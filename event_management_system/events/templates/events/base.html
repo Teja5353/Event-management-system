@@ -13,9 +13,10 @@
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'event_list' %}">Events</a></li>
+                <li><a href="{% url 'event_list' %}"><button class="button-681">Events</button></a></li>
                 {% if user.is_authenticated %}
                     <li class="welcome-text">Welcome, {{ user.username }}</li>
+                <li><a href="{% url 'event_create' %}"><button class="button-681">Create Event</button></a></li>
                     {% if user.is_authenticated %}
                         <form action="{% url 'logout' %}" method="POST" style="display: inline;">
                             {% csrf_token %}

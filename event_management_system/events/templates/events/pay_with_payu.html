@@ -1,0 +1,9 @@
+<!-- pay_with_payu.html -->
+
+<form action="{{ payu_url }}" method="POST">
+    {% csrf_token %}
+    {% for key, value in payu_data.items %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+    {% endfor %}
+    <button type="submit">Pay Now</button>
+</form>

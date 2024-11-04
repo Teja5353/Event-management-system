@@ -3,6 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% block content %}
+<div class="list-div">
 <h1 class="list_h">Welcome to the Event Management System</h1>
 <div class="list_wrap">
 {% if user.is_authenticated %}
@@ -33,4 +34,5 @@
         <p class="list_ele">No Upcoming Events!!</p>
     {% endif %}
 </div>
+    </div>
 {% endblock %}

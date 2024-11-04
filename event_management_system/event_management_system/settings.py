@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+# settings.py
+# settings.py
+
+PAYU_MERCHANT_KEY = "YOUR_MERCHANT_KEY"
+PAYU_MERCHANT_SALT = "YOUR_MERCHANT_SALT"
+PAYU_BASE_URL = "https://sandboxsecure.payu.in/_payment"  # Use the production URL when live
+PAYU_SUCCESS_URL = "http://yourdomain.com/payment_success/"
+PAYU_FAILURE_URL = "http://yourdomain.com/payment_failure/"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
