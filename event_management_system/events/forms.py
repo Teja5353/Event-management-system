@@ -1,13 +1,13 @@
 from django import forms
 from .models import Event, Booking
 
-from django.forms import TextInput, DateInput, TimeInput,SelectDateWidget
+from django.forms import TextInput, DateInput, TimeInput,SelectDateWidget,DecimalField
 
 
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'description', 'location', 'date', 'time'];
+        fields = ['name', 'description', 'location', 'date', 'time','price'];
         widgets = {
             'name': TextInput(
                 attrs={

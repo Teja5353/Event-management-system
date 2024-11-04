@@ -13,12 +13,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 # settings.py
 # settings.py
+# settings.py
+import os
 
-PAYU_MERCHANT_KEY = "YOUR_MERCHANT_KEY"
-PAYU_MERCHANT_SALT = "YOUR_MERCHANT_SALT"
-PAYU_BASE_URL = "https://sandboxsecure.payu.in/_payment"  # Use the production URL when live
-PAYU_SUCCESS_URL = "http://yourdomain.com/payment_success/"
-PAYU_FAILURE_URL = "http://yourdomain.com/payment_failure/"
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', 'your-publishable-key')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'your-secret-key')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,9 +82,10 @@ WSGI_APPLICATION = 'event_management_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",  # Adjust if your database file is named differently
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

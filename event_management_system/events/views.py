@@ -1,17 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Event, Booking,Payment
+from .models import Event, Booking
 from django.conf import settings
 from .forms import EventForm, BookingForm, PaymentForm
 from django.contrib.auth.forms import UserCreationForm
 import stripe
-import hashlib
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-
+from django.http import JsonResponse
 stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
+from django.views.decorators.csrf import csrf_exempt
 def event_list(request):
     user = request.user
     if user.is_authenticated:
@@ -66,52 +62,39 @@ def register(request):
     return render(request, 'registration/registration.html', {'form': form})
 
 
+def payment(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+
+    if request.method == 'POST':
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': event.title,
+                    },
+                    'unit_amount': int(event.price * 100),  # Convert to cents
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=request.build_absolute_uri('/success/'),
+            cancel_url=request.build_absolute_uri('/cancel/'),
+        )
+        return JsonResponse({'id': session.id})
+
+    form = PaymentForm(initial={'event_id': event_id})
+    return render(request, 'events/payment.html',
+                  {'form': form, 'event': event, 'stripe_public_key': settings.STRIPE_PUBLIC_KEY})
 @login_required
-def initiate_payment(request, event_id):
-    event = Event.objects.get(id=event_id)
-    user = request.user
-    amount = event.price  # Assuming each event has a price attribute
-
-    # Generate the hash required by PayU
-    hash_string = f"{settings.PAYU_MERCHANT_KEY}|{user.id}|{amount}|{event.name}|{user.first_name}|{user.email}|{settings.PAYU_SUCCESS_URL}|{settings.PAYU_FAILURE_URL}|{settings.PAYU_MERCHANT_SALT}"
-    hash_object = hashlib.sha512(hash_string.encode())
-    hash = hash_object.hexdigest()
-
-    # Create a Payment object
-    payment = Payment.objects.create(
-        event=event,
-        user=user,
-        amount=amount,
-        status="Pending"
-    )
-
-    # Data to be sent to PayU
-    payu_data = {
-        "key": settings.PAYU_MERCHANT_KEY,
-        "txnid": str(payment.id),
-        "amount": str(amount),
-        "productinfo": event.name,
-        "firstname": user.first_name,
-        "email": user.email,
-        "phone": user.profile.phone,  # Assuming user profile has a phone number
-        "surl": settings.PAYU_SUCCESS_URL,
-        "furl": settings.PAYU_FAILURE_URL,
-        "hash": hash,
-    }
-
-    return render(request, "events/pay_with_payu.html", {"payu_data": payu_data, "payu_url": settings.PAYU_BASE_URL})
-@csrf_exempt
-def payment_success(request):
-    txnid = request.POST.get('txnid')
-    payment = Payment.objects.get(id=txnid)
-    payment.status = "Success"
-    payment.save()
-    return HttpResponse("Payment successful")
-
-@csrf_exempt
-def payment_failure(request):
-    txnid = request.POST.get('txnid')
-    payment = Payment.objects.get(id=txnid)
-    payment.status = "Failure"
-    payment.save()
-    return HttpResponse("Payment failed")
+def payment_success(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    # Trigger "Book Now" functionality after successful payment
+    booking = Booking.objects.create(user=request.user, event=event)
+    # Redirect to a success page or booking confirmation
+    return redirect('booking_confirmation', booking_id=booking.id)
+@login_required
+def payment_cancel(request):
+    # Handle the cancellation if needed
+    return render(request, 'events/payment_cancel.html')
