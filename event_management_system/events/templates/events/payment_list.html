@@ -1,0 +1,25 @@
+<!-- templates/payments/payment_list.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Payments</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Status</th>
+            <th>Booking ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td>₹{{ payment.amount }}</td>
+            <td>{{ payment.payment_date }}</td>
+            <td>{{ payment.payment_status }}</td>
+            <td>{{ payment.booking.id }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

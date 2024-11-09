@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>Pay for Event: {{ event.title }}</h2>
-<p>Price: ${{ event.price }}</p>
+<p>Price: ₹{{ event.price }}</p> <!-- Use ₹ for Indian Rupee -->
 
 <form id="payment-form">
     <button id="checkout-button" type="button">Pay Now</button>
@@ -12,7 +12,7 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    const stripe = Stripe('{{ stripe_public_key }}');
+    const stripe = Stripe('{{ stripe_public_key }}'); // Ensure you pass this from your view
     const checkoutButton = document.getElementById('checkout-button');
 
     checkoutButton.addEventListener('click', () => {
@@ -22,16 +22,26 @@
                 'X-CSRFToken': '{{ csrf_token }}',
             },
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to create checkout session");
+            }
+            return response.json();
+        })
         .then(session => {
+            console.log('Session ID:', session.id);  // Log the session ID
             return stripe.redirectToCheckout({ sessionId: session.id });
         })
+
         .then(result => {
             if (result.error) {
                 alert(result.error.message);
             }
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while processing your payment.");
+        });
     });
 </script>
 {% endblock %}

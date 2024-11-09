@@ -1,5 +1,6 @@
 {% extends 'events/base.html' %}
 {% block title %}Register{% endblock %}
+<div class="reg-div">
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -12,5 +13,5 @@
     <button type="submit" class="regButton">Register</button>
 </form>
 <p>Already have an account? <a href="{% url 'login' %}" class="register_a">Login here</a></p>
-</div></div>
+</div></div></div>
 {% endblock %}

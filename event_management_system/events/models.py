@@ -30,6 +30,18 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.attendee.user.username} booked {self.event.name} on {self.booking_date}"
+class Payment(models.Model):
+    booking = models.ForeignKey('Booking', on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    payment_status = models.CharField(max_length=50, choices=[
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed'),
+    ])
+    stripe_payment_id = models.CharField(max_length=100, null=True, blank=True)  # Optional: store Stripe payment ID
 
+    def __str__(self):
+        return f"Payment of {self.price} for booking {self.booking.id} - Status: {self.payment_status}"
 # Create your models here.
 

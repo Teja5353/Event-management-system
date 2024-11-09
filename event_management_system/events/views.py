@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Event, Booking
+from .models import Event, Booking, Payment
 from django.conf import settings
 from .forms import EventForm, BookingForm, PaymentForm
 from django.contrib.auth.forms import UserCreationForm
 import stripe
 from django.http import JsonResponse
+from django.urls import reverse
 stripe.api_key = settings.STRIPE_SECRET_KEY
 from django.views.decorators.csrf import csrf_exempt
 def event_list(request):
@@ -64,37 +65,61 @@ def register(request):
 
 def payment(request, event_id):
     event = get_object_or_404(Event, id=event_id)
+    print(f"Creating payment session for event: {event.name}")  # Debugging statement
 
-    if request.method == 'POST':
-        session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
+    # Create a Stripe checkout session
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[
+            {
                 'price_data': {
-                    'currency': 'usd',
+                    'currency': 'inr',
                     'product_data': {
-                        'name': event.title,
+                        'name': event.name,
                     },
-                    'unit_amount': int(event.price * 100),  # Convert to cents
+                    'unit_amount': int(event.price * 100),
                 },
                 'quantity': 1,
-            }],
-            mode='payment',
-            success_url=request.build_absolute_uri('/success/'),
-            cancel_url=request.build_absolute_uri('/cancel/'),
-        )
-        return JsonResponse({'id': session.id})
+            },
+        ],
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('payment_success', args=[event.id])),
+        cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
+    )
+    print(f"Checkout session created: {checkout_session.id}")  # Debugging statement
+    return JsonResponse({'id': checkout_session.id})
 
-    form = PaymentForm(initial={'event_id': event_id})
-    return render(request, 'events/payment.html',
-                  {'form': form, 'event': event, 'stripe_public_key': settings.STRIPE_PUBLIC_KEY})
-@login_required
+
+
 def payment_success(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-    # Trigger "Book Now" functionality after successful payment
-    booking = Booking.objects.create(user=request.user, event=event)
-    # Redirect to a success page or booking confirmation
-    return redirect('booking_confirmation', booking_id=booking.id)
-@login_required
+
+    # Create a booking for the authenticated user
+    attendee = request.user.attendee
+    booking = Booking.objects.create(event=event, attendee=attendee)
+
+    # Store the payment record
+    Payment.objects.create(
+        booking=booking,
+        price=event.price,  # Use event price directly
+        payment_status='completed',  # Mark payment as completed
+        stripe_payment_id=request.GET.get('session_id')  # Get session ID from Stripe
+    )
+
+    # Render the success template and pass the event
+    return render(request, 'events/success.html', {'event': event})
+
+
+
 def payment_cancel(request):
-    # Handle the cancellation if needed
     return render(request, 'events/payment_cancel.html')
+def payment_view(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    return render(request, 'events/payments.html', {
+        'event': event,
+        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
+    })
+@login_required
+def payment_list(request):
+    payments = Payment.objects.filter(booking__attendee=request.user.attendee)
+    return render(request, 'payments/payment_list.html', {'payments': payments})

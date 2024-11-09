@@ -8,7 +8,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('register/', views.register, name='register'),  # Registration URL
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('payment/<int:event_id>/success/', views.payment_success, name='payment_success'),
+    path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
     path('payment/<int:event_id>/', views.payment, name='payment'),
-    path('success/', views.payment_success, name='payment_success'),
-    path('cancel/', views.payment_cancel, name='payment_cancel'),
 ]

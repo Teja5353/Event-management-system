@@ -16,8 +16,8 @@ from pathlib import Path
 # settings.py
 import os
 
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', 'your-publishable-key')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'your-secret-key')
+STRIPE_PUBLIC_KEY = "pk_test_51QHqCNPOQBQ767Gq2QLEAZ6vW3BSx2trtzhqHWNUsOQc0LgPn63Ff336clYr12dPAZruA8YfBq8zn9k0aebhk6DN00fuHgD9Xb"
+STRIPE_SECRET_KEY = "sk_test_51QHqCNPOQBQ767GqX1CoKivA8FmaQpFz7T1ajox1KR8aUYvjhma4JLJ6tQ3mbXOfQLNnhzUDRBcJN3lZjQmBYeFQ00pLdDPuan"
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

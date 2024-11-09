@@ -1,15 +1,47 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <div class="book-div">
-<h1 class="book-head">Book Event : {{ event.name }}</h1>
-    <div class="loc">Location&#128205; : {{event.location}} </div>
-    <div class="loc">Date &#128467;: {{event.date}}</div>
-    <div class="loc">Time &#128344;: {{event.time}}</div>
-    <h2 class="book-h2">About Event :</h2>
-    <div class="desc">{{event.description}}</div>
-    <form method="POST" class="form-book">
-    {% csrf_token %}
-    {{ form.as_p }}
-        <a href="{% url 'payment' event.id %}"><button class="logout-button1">Book Now</button></a>
-</form>
+    <h1 class="book-head">Book Event: {{ event.name }}</h1>
+    <div class="box">
+    <div class="loc">Location&#128205;: {{ event.location }}</div>
+    <div class="loc">Date &#128467;: {{ event.date }}</div>
+    <div class="loc">Time &#128344;: {{ event.time }}</div>
+    <div class="loc">Price &#128181;: {{ event.price }}</div>
+    <h2 class="book-h2">About Event:</h2>
+    <div class="desc">{{ event.description }}</div>
+    <form method="POST" id="booking-form" class="form-book">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="button" id="pay-now-button" class="logout-button1">Book Now</button>
+    </form>
+    </div>
 </div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe("pk_test_51QHqCNPOQBQ767Gq2QLEAZ6vW3BSx2trtzhqHWNUsOQc0LgPn63Ff336clYr12dPAZruA8YfBq8zn9k0aebhk6DN00fuHgD9Xb"); // Replace with your Stripe publishable key
+
+    document.getElementById('pay-now-button').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Fetch the checkout session from your Django backend
+        fetch("{% url 'payment' event.id %}", {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for security
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Redirect to Stripe Checkout
+            return stripe.redirectToCheckout({ sessionId: data.id });
+        })
+        .then(result => {
+            if (result.error) {
+                // Display error.message in your UI.
+                alert(result.error.message);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+</script>
